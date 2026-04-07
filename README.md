@@ -2,6 +2,11 @@
 
 **Thermal and Elastic Scale-bridging Analysis of Polycrystalline Microstructures**
 
+**Authors:** Alden C. Cook<sup>1</sup>, Senthil S. Vel<sup>1</sup>, Scott Johnson<sup>2</sup>, Chris Gerbi<sup>2</sup>, and Won Joon Song<sup>2</sup>
+
+<sup>1</sup> Department of Mechanical Engineering, University of Maine, Orono, Maine 04469
+<sup>2</sup> School of Earth and Climate Sciences, University of Maine, Orono, Maine 04469
+
 TESA Toolbox is a Python-based computational tool for evaluating the effective (homogenized) thermo-elastic and thermal transport properties of polycrystalline materials directly from EBSD (Electron Backscatter Diffraction) microstructure data. It uses the **Asymptotic Expansion Homogenization (AEH)** finite element method to bridge the gap between single-crystal properties and bulk polycrystalline behavior.
 
 ## What TESA Does
