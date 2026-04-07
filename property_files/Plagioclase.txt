@@ -1,0 +1,63 @@
+# ──────────────────────────────────────────────────────────────
+# TESA Property File
+# ──────────────────────────────────────────────────────────────
+#
+# Keywords:
+#   *phase                  Phase/material name
+#   *density                Scalar (kg/m^3)
+#   *stiffness_matrix       6x6 matrix (Pa)
+#   *thermal_expansion      6x1 vector (1/K)
+#   *thermal_conductivity   3x3 matrix (W/(m K))
+#
+# Notes:
+#   - Comments (#) and blank lines are ignored by the parser
+#   - Use "# source:" to document data provenance
+#   - Missing keywords use defaults: *phase=filename,
+#     *density=1.0, *stiffness_matrix=identity,
+#     *thermal_expansion=zeros, *thermal_conductivity=identity
+#
+# ──────────────────────────────────────────────────────────────
+
+*phase
+Plagioclase
+
+*density
+# source: [1]
+2700
+
+*stiffness_matrix
+# source: [2]
+ 87.1e+9   43.9e+9   35.4e+9    6.1e+9  -0.4e+9   -0.6e+9
+ 43.9e+9 174.9e+9   18.0e+9  -5.9e+9  -2.9e+9   -6.5e+9
+ 35.4e+9   18.0e+9 166.1e+9  -2.9e+9    4.6e+9 -10.7e+9
+   6.1e+9    -5.9e+9   -2.9e+9  22.9e+9  -1.3e+9   -5.2e+9
+ -0.4e+9    -2.9e+9     4.6e+9   -1.3e+9  29.0e+9    0.8e+9
+ -0.6e+9    -6.5e+9 -10.7e+9   -5.2e+9    0.8e+9  35.0e+9
+
+*thermal_expansion
+# source: [3]
+7.0e-6
+7.0e-6
+7.0e-6
+0.0e+0
+0.0e+0
+0.0e+0
+
+*thermal_conductivity
+# source: [4]
+1.53 0.0  0.0
+0.0  1.53 0.0
+0.0  0.0  1.53
+
+# References
+# [1] Representative value for plagioclase density.
+# [2] Brown, J. M., R. J. Angel, N. L. Ross (2016) Elasticity of plagioclase feldspars,
+#     J. Geophys. Res. Solid Earth 121, 663-675. At ambient conditions.
+# [3] Representative values adopted for modeling purposes; users should
+#     consult primary literature for accurate, composition-dependent data.
+# [4] Cermak, V. and L. Rybach (1982). Thermal properties: Thermal conductivity 
+#     and specific heat of minerals and rocks. In: Landolt-B¨ornstein: Numerical Data 
+#     and Functional Relationships in Science and Technology, New Series, 
+#     Group V: Geophysics and Space Research. Ed. by G. Angenheister. 
+#     Vol. 1a. Berlin, Heidelberg, New York: Springer, pp. 305–343.
+

@@ -1,0 +1,63 @@
+# ──────────────────────────────────────────────────────────────
+# TESA Property File
+# ──────────────────────────────────────────────────────────────
+#
+# Keywords:
+#   *phase                  Phase/material name
+#   *density                Scalar (kg/m^3)
+#   *stiffness_matrix       6x6 matrix (Pa)
+#   *thermal_expansion      6x1 vector (1/K)
+#   *thermal_conductivity   3x3 matrix (W/(m K))
+#
+# Notes:
+#   - Comments (#) and blank lines are ignored by the parser
+#   - Use "# source:" to document data provenance
+#   - Missing keywords use defaults: *phase=filename,
+#     *density=1.0, *stiffness_matrix=identity,
+#     *thermal_expansion=zeros, *thermal_conductivity=identity
+#
+# ──────────────────────────────────────────────────────────────
+
+*phase
+Quartz
+
+*density
+# source: [1]
+2650
+
+*stiffness_matrix
+# source: [1]
+  88.2e+9    6.5e+9   12.4e+9  18.8e+9  00.0e+0  00.0e+0
+   6.5e+9   88.2e+9   12.4e+9 -18.8e+9  00.0e+0  00.0e+0
+  12.4e+9   12.4e+9  107.2e+9  00.0e+0  00.0e+0  00.0e+0
+  18.8e+9  -18.8e+9   00.0e+0  58.5e+9  00.0e+0  00.0e+0
+  00.0e+0   00.0e+0   00.0e+0  00.0e+0  58.5e+9  18.8e+9
+  00.0e+0   00.0e+0   00.0e+0  00.0e+0  18.8e+9  40.9e+9
+
+*thermal_expansion
+# source: [2]
+8.0e-6
+8.0e-6
+14.0e-6
+0.0e+0
+0.0e+0
+0.0e+0
+
+*thermal_conductivity
+# source: [3]
+6.15 0.0 0.0
+0.0 6.15 0.0
+0.0 0.0 10.17
+
+# References
+# [1] Ohno, I., Harada, K., Yoshitomi, C. (2006) Temperature variation of
+#     elastic constants of quartz across the a-b transition, Physics and
+#     Chemistry of Minerals 33, 1-9. Synthetic quartz crystal at T=19C;
+#     density from X-ray; 2641 kg/m^3 from mass and volume.
+# [2] Representative values adopted for modeling purposes; users should
+#     consult primary literature for accurate data.
+# [3] Clauser, C. and E. Huenges (1995). Thermal Conductivity of Rocks and Minerals. 
+#     In: Rock Physics and Phase Relations: A Handbook of Physical Constants. Ed. by 
+#     T.J.Ahrens. Vol. 3. AGU Reference Shelf. Washington, D.C.: American Geophysical Union, 
+#     pp. 105–126.
+
