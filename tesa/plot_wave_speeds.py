@@ -57,7 +57,7 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     ebsd_name : str
         EBSD filename for title.
     settings : dict
-        Global settings (figure_dpi, field_colormap, show_figures, figure_pause).
+        Global settings (figure_dpi, field_colormap).
     save_path : str
         Full path to save the PNG file.
 
@@ -67,8 +67,6 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     """
     figure_dpi = settings.get("figure_dpi", 150)
     cmap_name = settings.get("field_colormap", "turbo")
-    show_figures = settings.get("show_figures", False)
-    figure_pause = settings.get("figure_pause", 1.0)
 
     # Project lower hemisphere to 2D Lambert equal-area disk
     # z ranges from -1 (south pole → origin) to 0 (equator → boundary at r=sqrt(2))
@@ -128,10 +126,6 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig.savefig(save_path, dpi=figure_dpi, bbox_inches='tight')
 
-    # Show if requested
-    if show_figures:
-        fig.show()
-        plt.pause(figure_pause)
     plt.close(fig)
 
 
@@ -169,15 +163,15 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     """
     figure_dpi = settings.get("figure_dpi", 150)
     cmap_name = settings.get("field_colormap", "turbo")
-    show_figures = settings.get("show_figures", False)
-    figure_pause = settings.get("figure_pause", 1.0)
+    # Wave speed plots are never displayed on screen (too many figures);
+    # they are always saved to files only.
 
     # Mirror hemisphere to full sphere
     xn, yn, zn, dn = mirrorsphere(XC, YC, ZC, field)
 
-    # Create 3D figure
-    fig = plt.figure(figsize=(8, 7))
-    ax = fig.add_subplot(111, projection='3d')
+    # Create 3D figure — use a wider subplot region so the sphere fills more space
+    fig = plt.figure(figsize=(7, 7))
+    ax = fig.add_axes([0.0, 0.05, 0.85, 0.85], projection='3d')
 
     # Normalize field values for colormapping
     cmap = plt.cm.get_cmap(cmap_name)
@@ -220,16 +214,16 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     ax.text(0, label_offset, 0, 'y', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
     ax.text(0, 0, label_offset, 'z', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
 
-    # Set axis limits
-    ax.set_xlim([-1.4, 1.4])
-    ax.set_ylim([-1.4, 1.4])
-    ax.set_zlim([-1.4, 1.4])
+    # Set axis limits tight to the sphere so it fills the frame
+    ax.set_xlim([-1.05, 1.05])
+    ax.set_ylim([-1.05, 1.05])
+    ax.set_zlim([-1.05, 1.05])
 
     # Add colorbar via ScalarMappable
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
     cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
-    cb = fig.colorbar(sm, ax=ax, shrink=0.6, pad=0.1)
+    cb = fig.colorbar(sm, ax=ax, shrink=0.5, pad=0.08)
     cb.set_label(cb_label, fontsize=12)
 
     # Title
@@ -245,10 +239,6 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig.savefig(save_path, dpi=figure_dpi, bbox_inches='tight')
 
-    # Show if requested
-    if show_figures:
-        fig.show()
-        plt.pause(figure_pause)
     plt.close(fig)
 
 
