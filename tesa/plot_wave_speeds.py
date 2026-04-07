@@ -171,7 +171,7 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
 
     # Create 3D figure — use a wider subplot region so the sphere fills more space
     fig = plt.figure(figsize=(7, 7))
-    ax = fig.add_axes([0.0, 0.05, 0.85, 0.85], projection='3d')
+    ax = fig.add_axes([-0.15, -0.05, 1.0, 1.0], projection='3d')
 
     # Normalize field values for colormapping
     cmap = plt.cm.get_cmap(cmap_name)
@@ -215,9 +215,9 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     ax.text(0, 0, label_offset, 'z', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
 
     # Set axis limits tight to the sphere so it fills the frame
-    ax.set_xlim([-1.05, 1.05])
-    ax.set_ylim([-1.05, 1.05])
-    ax.set_zlim([-1.05, 1.05])
+    ax.set_xlim([-0.85, 0.85])
+    ax.set_ylim([-0.85, 0.85])
+    ax.set_zlim([-0.85, 0.85])
 
     # Add colorbar via ScalarMappable
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
