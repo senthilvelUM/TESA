@@ -135,7 +135,7 @@ def _run_thermoelastic(ms, job, run_dir, log_path, settings, analysis_dir=None,
         Must have mesh, phase properties, and correction matrices populated.
     job : dict
         Job configuration dictionary with keys such as
-        'wave_speed_fields', 'macro_mechanical_field',
+        'wave_speed_plots', 'macro_mechanical_field',
         'macro_temperature_field', 'macro_mechanical_field_type'.
     run_dir : str or None
         Results directory for output files.
@@ -260,7 +260,7 @@ def _run_thermoelastic(ms, job, run_dir, log_path, settings, analysis_dir=None,
         _print_beta("GeoMean", beta_geo)
 
     # ── Step 6: Wave speeds (optional) ──────────────────────────────────
-    ws_fields = job.get("wave_speed_fields", "none")
+    ws_fields = job.get("wave_speed_plots", "none")
     compute_ws = ws_fields != "none"
     if compute_ws:
         if console_on:

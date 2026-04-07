@@ -268,13 +268,13 @@ In this tutorial, a unit temperature gradient is applied in the negative x2 dire
 ### Wave speed analysis
 
 ```python
-"wave_speed_fields": "all",
+"wave_speed_plots": "all",
 "wave_speed_plot_type": "both",
 "wave_speed_sphere_elev": 30,
 "wave_speed_sphere_azim": 30,
 ```
 
-- `wave_speed_fields` — `"all"` computes all 8 wave speed fields (VP, VS1, VS2, VSH, VSV, AVS, DTS, DTP). You can also pass a list of specific field names, or `"none"` to skip.
+- `wave_speed_plots` — `"all"` computes all 8 wave speed fields (VP, VS1, VS2, VSH, VSV, AVS, DTS, DTP). You can also pass a list of specific field names, or `"none"` to skip.
 - `wave_speed_plot_type` — `"lambert"` for 2D Lambert azimuthal projections, `"sphere"` for 3D sphere plots, or `"both"`
 
 ## 4. Running the Pipeline

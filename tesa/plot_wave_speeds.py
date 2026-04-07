@@ -355,7 +355,7 @@ def plot_all_wave_speeds(ms, wave_speed_plots_dir=None, settings=None, verbose=T
         return
 
     # Determine which fields to plot
-    ws_fields_setting = settings.get("wave_speed_fields", "all")
+    ws_fields_setting = settings.get("wave_speed_plots", "all")
     if ws_fields_setting == "all":
         fields_to_plot = WAVE_SPEED_FIELDS
     else:
@@ -437,7 +437,7 @@ def plot_all_phase_wave_speeds(ms, wave_speed_plots_dir=None, settings=None, ver
         return
 
     # Determine which fields to plot
-    ws_fields_setting = settings.get("wave_speed_fields", "all")
+    ws_fields_setting = settings.get("wave_speed_plots", "all")
     if ws_fields_setting == "all":
         fields_to_plot = WAVE_SPEED_FIELDS
     else:

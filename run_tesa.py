@@ -114,7 +114,7 @@ settings = {
 #   macro_thermal_field           : [∂T/∂x1, ∂T/∂x2, ∂T/∂x3] or [q1, q2, q3]
 #
 # Wave speed settings:
-#   wave_speed_fields    : "none" = skip, "all" = all 8 fields, or list of field names
+#   wave_speed_plots    : "none" = skip, "all" = all 8 fields, or list of field names
 #                          ["VP", "VS1", "VS2", "VSH", "VSV", "AVS", "DTS", "DTP"]
 #   wave_speed_plot_type : "lambert" = 2D disk, "sphere" = 3D, "both" = both
 jobs = [
@@ -165,7 +165,7 @@ jobs = [
         "macro_thermal_field": [0, -1, 0],                  # [∂T/∂x1, ∂T/∂x2, ∂T/∂x3] or [q1, q2, q3]
         
         # ── Wave speed settings ──────────────────────────────────────
-        "wave_speed_fields": "VP",                        # "none" = skip, "all" = all 8 fields, or list:
+        "wave_speed_plots": "VP",                        # "none" = skip, "all" = all 8 fields, or list:
                                                             # ["VP", "VS1", "VS2", "VSH", "VSV", "AVS", "DTS", "DTP"]
         "wave_speed_plot_type": "both",                     # "lambert" = 2D disk, "sphere" = 3D, "both" = both
         "wave_speed_sphere_elev": 30,                         # Sphere plot elevation above x-y plane (degrees)

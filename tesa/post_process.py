@@ -222,7 +222,7 @@ def _postprocess_thermoelastic(ms, job, analysis_dir, properties_dir, field_plot
         from .plot_wave_speeds import plot_all_wave_speeds
         # Merge job-level wave speed settings into settings for the plotter
         ws_settings = dict(settings)
-        ws_settings["wave_speed_fields"] = job.get("wave_speed_fields", "all")
+        ws_settings["wave_speed_plots"] = job.get("wave_speed_plots", "all")
         ws_settings["wave_speed_plot_type"] = job.get("wave_speed_plot_type", "both")
         ws_settings["wave_speed_sphere_elev"] = job.get("wave_speed_sphere_elev", 30)
         ws_settings["wave_speed_sphere_azim"] = job.get("wave_speed_sphere_azim", 30)
@@ -233,7 +233,7 @@ def _postprocess_thermoelastic(ms, job, analysis_dir, properties_dir, field_plot
     if wave_speed_plots_dir and hasattr(ms, 'PhaseWaveSpeedResults') and ms.PhaseWaveSpeedResults:
         from .plot_wave_speeds import plot_all_phase_wave_speeds
         ws_settings = dict(settings)
-        ws_settings["wave_speed_fields"] = job.get("wave_speed_fields", "all")
+        ws_settings["wave_speed_plots"] = job.get("wave_speed_plots", "all")
         ws_settings["wave_speed_plot_type"] = job.get("wave_speed_plot_type", "both")
         ws_settings["wave_speed_sphere_elev"] = job.get("wave_speed_sphere_elev", 30)
         ws_settings["wave_speed_sphere_azim"] = job.get("wave_speed_sphere_azim", 30)
