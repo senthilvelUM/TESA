@@ -59,7 +59,6 @@ Microscale field outputs include:
 
 TESA reads standard EBSD formats:
 - `.ang` (TSL/EDAX OIM)
-- `.ctf` (Oxford Instruments Channel 5)
 - `.txt` (generic tab-delimited with Euler angles and coordinates)
 
 ### Crystal Phase Property Files
