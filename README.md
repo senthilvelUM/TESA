@@ -23,6 +23,8 @@ TESA Toolbox is a Python-based computational tool for evaluating the effective (
   <img src="docs/images/VP_sphere.png" width="380" alt="P-wave velocity sphere plot">
 </p>
 
+**New to TESA?** See the **[Tutorial](docs/Tutorial.md)** for a step-by-step walkthrough using the included sample data.
+
 ## What TESA Does
 
 Given an EBSD map and crystal phase property files, TESA:
