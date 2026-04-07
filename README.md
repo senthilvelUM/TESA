@@ -129,6 +129,7 @@ docs/                    # Documentation and tutorial
 - SciPy
 - Matplotlib
 - Shapely
+- imageio
 
 ## Getting Started
 
