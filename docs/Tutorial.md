@@ -285,6 +285,8 @@ Once `run_tesa.py` is configured, run it from the project root:
 python run_tesa.py
 ```
 
+Use `python3 run_tesa.py` if your system requires it.
+
 The pipeline processes each job through four stages:
 
 | Stage | What it does |

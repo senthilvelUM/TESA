@@ -134,9 +134,15 @@ docs/                    # Documentation and tutorial
 
 1. Clone the repository
 2. Install dependencies: `pip install -r requirements.txt`
-3. Follow the **[Tutorial](docs/Tutorial.md)** for a step-by-step walkthrough using the included sample data
-4. Run: `python run_tesa.py`
+3. Edit `run_tesa.py` to configure your EBSD file, phase properties, and analysis settings
+4. Run the pipeline:
+   ```
+   python run_tesa.py
+   ```
+   (Use `python3 run_tesa.py` if your system requires it.)
 5. Results are saved to `results/{ebsd_name}/`
+
+For a detailed walkthrough of all settings and sample output, see the **[Tutorial](docs/Tutorial.md)**.
 
 ## References
 
