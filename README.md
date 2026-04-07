@@ -10,6 +10,14 @@
 
 TESA Toolbox is a Python-based computational tool for evaluating the effective (homogenized) thermo-elastic and thermal transport properties of polycrystalline materials directly from EBSD (Electron Backscatter Diffraction) microstructure data. It uses the **Asymptotic Expansion Homogenization (AEH)** finite element method to bridge the gap between single-crystal properties and bulk polycrystalline behavior.
 
+<p align="center">
+  <img src="docs/images/grains_numbered.png" width="190" alt="Numbered grain map">
+  <img src="docs/images/final_mesh.png" width="190" alt="Conforming FE mesh">
+  <img src="docs/images/sigma_11.png" width="190" alt="Microscale stress field">
+  <img src="docs/images/q_vector_2D.png" width="190" alt="Heat flux vectors">
+  <img src="docs/images/VP_lambert.png" width="190" alt="P-wave velocity">
+</p>
+
 ## What TESA Does
 
 Given an EBSD map and crystal phase property files, TESA:
