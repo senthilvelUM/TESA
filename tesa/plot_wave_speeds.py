@@ -223,7 +223,7 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
     cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
-    cb = fig.colorbar(sm, ax=ax, shrink=0.5, pad=0.08)
+    cb = fig.colorbar(sm, ax=ax, shrink=0.6, pad=0.1)
     cb.set_label(cb_label, fontsize=12)
 
     # Title
