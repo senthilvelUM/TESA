@@ -128,6 +128,7 @@ docs/                    # Documentation and tutorial
 - NumPy
 - SciPy
 - Matplotlib
+- Pillow
 - Shapely
 - imageio
 
