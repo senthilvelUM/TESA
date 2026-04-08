@@ -66,7 +66,7 @@ TESA can compute the following effective properties from EBSD data:
 
 Microscale field outputs include:
 - **Stress and strain fields** under applied mechanical loading or thermal loading
-- **Heat flux and temperature gradient fields** under applied temperature gradient
+- **Heat flux and temperature gradient fields** under applied temperature gradient or heat flux
 
 ## Input Data
 
