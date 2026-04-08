@@ -60,6 +60,8 @@ def mesh_nonconforming_rectgrid(ms, job, run_dir=None, log_path=None, settings=N
     figure_pause = settings.get("figure_pause", 1.0)
     figure_dpi = settings.get("figure_dpi", 150)
     random_seed = settings.get("random_seed", 42)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
+    figure_fontsize = settings.get("figure_fontsize", 12)
 
     # Phase colors and grain colormap (with fallback defaults)
     if "phase_colors" not in settings:
@@ -453,7 +455,7 @@ def mesh_nonconforming_rectgrid(ms, job, run_dir=None, log_path=None, settings=N
                      f'Final Mesh — {n_elems} elements, {n_nodes} nodes\n'
                      f'Quality: min={q_min:.4f}, mean={q_mean:.4f}  |  '
                      f'Area: {covered_area:.1f}/{domain_area:.0f}',
-                     fontsize=12)
+                     fontsize=figure_title_fontsize)
         save(fig, _next_fig_name('final_mesh.png'))
 
         # ── Final mesh overlaid on original grain boundaries ─────────────
@@ -484,7 +486,7 @@ def mesh_nonconforming_rectgrid(ms, job, run_dir=None, log_path=None, settings=N
         ax.set_title(f'{_title_info}\n'
                      f'Final Mesh on Original Grain Boundaries\n'
                      f'{n_elems} elements, {n_nodes} nodes',
-                     fontsize=12)
+                     fontsize=figure_title_fontsize)
         save(fig, _next_fig_name('final_mesh_on_original_GB.png'))
 
         # ── Final mesh overlaid on original phase map ────────────────────
@@ -525,11 +527,11 @@ def mesh_nonconforming_rectgrid(ms, job, run_dir=None, log_path=None, settings=N
             _rgba = _mcolors_global.to_rgba(_phase_base_colors[(_ph - 1) % len(_phase_base_colors)])
             _ph_name = ms.PhaseName[_ph-1] if ms.PhaseName and _ph-1 < len(ms.PhaseName) and ms.PhaseName[_ph-1] else f"Phase {_ph}"
             _pm_legend.append(_PatchPM(facecolor=_rgba, edgecolor='k', label=f'Phase {_ph}: {_ph_name}'))
-        ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+        ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
         ax.set_title(f'{_title_info}\n'
                      f'Final Mesh on Phase Map\n'
                      f'{n_elems} elements, {n_nodes} nodes',
-                     fontsize=12)
+                     fontsize=figure_title_fontsize)
         save(fig, _next_fig_name('final_mesh_on_original_phase_map.png'))
 
         # ── Phase-colored mesh figure ────────────────────────────────────
@@ -557,10 +559,10 @@ def mesh_nonconforming_rectgrid(ms, job, run_dir=None, log_path=None, settings=N
             _ph_name = ms.PhaseName[ph-1] if ms.PhaseName and ph-1 < len(ms.PhaseName) and ms.PhaseName[ph-1] else f"Phase {ph}"
             _phase_legend.append(_Patch(facecolor=rgba, edgecolor='k',
                                         label=f'Phase {ph}: {_ph_name}'))
-        ax.legend(handles=_phase_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+        ax.legend(handles=_phase_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
         ax.set_title(f'{_title_info}\n'
                      f'Final Mesh — Phase Colored',
-                     fontsize=12)
+                     fontsize=figure_title_fontsize)
         save(fig, os.path.join('diagnostics', _next_fig_name('final_mesh_phase.png')))
 
     # ══════════════════════════════════════════════════════════════════════

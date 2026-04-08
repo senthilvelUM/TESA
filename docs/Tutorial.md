@@ -115,9 +115,11 @@ The `settings` dictionary at the top of `run_tesa.py` controls options that appl
 ### Figure display
 
 ```python
-"show_figures": True,    # True = display on screen, False = save to files only
-"figure_pause": 1.0,     # Seconds each figure is displayed (if show_figures=True)
-"figure_dpi": 150,       # Resolution of saved figures
+"show_figures": True,           # True = display on screen, False = save to files only
+"figure_pause": 1.0,            # Seconds each figure is displayed (if show_figures=True)
+"figure_dpi": 150,              # Resolution of saved figures (dots per inch)
+"figure_fontsize": 16,          # Font size for all non-title text (colorbar labels, tick labels, axis labels)
+"figure_title_fontsize": 14,    # Font size for figure titles
 ```
 
 Set `show_figures` to `False` if running on a remote server or if you prefer to review saved figures after the run completes.
@@ -222,7 +224,7 @@ When `remove_small_grains` is `True`, grains with fewer than `min_grain_pixels` 
 These settings control the conforming mesh generator and normally do not need to be changed:
 
 ```python
-"mesh_convergence": [10, 0.2, 0.8, 20],
+"mesh_convergence": [10, 0.2, 0.8, 15],
 "mesh_floor_ratio": 0.2,
 "junction_refine_ratio": 0.7,
 "advanced_mesh_params": [0.01, 0.5, 0.3],
@@ -268,13 +270,13 @@ In this tutorial, a unit temperature gradient is applied in the negative x2 dire
 ### Wave speed analysis
 
 ```python
-"wave_speed_plots": "all",
+"wave_speed_plots": ["VP", "VS1"],
 "wave_speed_plot_type": "both",
 "wave_speed_sphere_elev": 30,
 "wave_speed_sphere_azim": 30,
 ```
 
-- `wave_speed_plots` — `"all"` computes all 8 wave speed fields (VP, VS1, VS2, VSH, VSV, AVS, DTS, DTP). You can also pass a list of specific field names, or `"none"` to skip.
+- `wave_speed_plots` — `"none"` to skip, `"all"` for all 8 fields, or a list of specific field names: `["VP", "VS1", "VS2", "VSH", "VSV", "AVS", "DTS", "DTP"]`.
 - `wave_speed_plot_type` — `"lambert"` for 2D Lambert azimuthal projections, `"sphere"` for 3D sphere plots, or `"both"`
 
 ## 4. Running the Pipeline
@@ -332,8 +334,8 @@ results/Tutorial/
 Stage 1 parses the EBSD data into grains colored by phase. Grain boundaries are smoothed using RBF (Radial Basis Function) interpolation to produce realistic contours from the pixelated EBSD data.
 
 <p align="center">
-  <img src="images/grains_phase.png" width="380" alt="Grain map colored by phase">
-  <img src="images/grain_overlay_comparison.png" width="380" alt="RBF-smoothed grain boundaries">
+  <img src="images/grains_phase.png" height="350" alt="Grain map colored by phase">
+  <img src="images/grain_overlay_comparison.png" height="350" alt="RBF-smoothed grain boundaries">
 </p>
 
 ### Mesh
@@ -341,8 +343,8 @@ Stage 1 parses the EBSD data into grains colored by phase. Grain boundaries are 
 Stage 2 generates a conforming non-uniform mesh (Type 1) that adapts element size to grain boundary curvature and junction points. The mesh size function controls local refinement — smaller elements near boundaries, larger in grain interiors.
 
 <p align="center">
-  <img src="images/mesh_size_function.png" width="380" alt="Mesh size function">
-  <img src="images/final_mesh.png" width="380" alt="Final conforming mesh">
+  <img src="images/mesh_size_function.png" height="350" alt="Mesh size function">
+  <img src="images/final_mesh.png" height="350" alt="Final conforming mesh">
 </p>
 
 Mesh quality convergence is tracked using three metrics: q_mean (bulk quality), q_worst_avg (mean quality of the worst 0.5% of elements), and q_min (absolute worst element).
@@ -380,8 +382,8 @@ Under the applied uniaxial stress of 100 MPa in x1, TESA computes the microscale
 Below are the normal stress sigma_11 and the normal strain epsilon_11 in the loading direction. The stress varies significantly across grains due to elastic anisotropy — even though the macroscale stress is uniform, each grain experiences a different local stress state depending on its orientation and its neighbors.
 
 <p align="center">
-  <img src="images/sigma_11.png" width="380" alt="Sigma_11 normal stress field">
-  <img src="images/epsilon_11.png" width="380" alt="Epsilon_11 normal strain field">
+  <img src="images/sigma_11.png" height="300" alt="Sigma_11 normal stress field">
+  <img src="images/epsilon_11.png" height="300" alt="Epsilon_11 normal strain field">
 </p>
 
 The maximum shear stress (tau_max) highlights stress concentrations near grain boundaries and triple junctions, where crystallographic mismatch between grains is largest.
@@ -397,8 +399,8 @@ TESA computes all 6 stress and strain components (sigma_11 through sigma_12, eps
 Under the applied temperature gradient of [0, -1, 0] (unit gradient in the negative x2 direction), TESA computes the microscale heat flux and temperature gradient fields. Below are the heat flux magnitude contour, the heat flux vector field, and the temperature gradient magnitude.
 
 <p align="center">
-  <img src="images/q_magnitude_2D.png" width="380" alt="Heat flux magnitude">
-  <img src="images/q_vector_2D.png" width="380" alt="Heat flux vectors">
+  <img src="images/q_magnitude_2D.png" height="300" alt="Heat flux magnitude">
+  <img src="images/q_vector_2D.png" height="300" alt="Heat flux vectors">
 </p>
 
 <p align="center">
@@ -416,8 +418,8 @@ TESA computes seismic wave speeds (phase velocities) as a function of propagatio
 Below are the P-wave velocity (VP) shown as both a Lambert projection and a 3D sphere, and the shear wave anisotropy (AVS) as a Lambert projection. These are computed from the AEH effective stiffness.
 
 <p align="center">
-  <img src="images/VP_lambert.png" width="380" alt="VP P-wave velocity Lambert projection">
-  <img src="images/VP_sphere.png" width="380" alt="VP P-wave velocity sphere plot">
+  <img src="images/VP_lambert.png" height="300" alt="VP P-wave velocity Lambert projection">
+  <img src="images/VP_sphere.png" height="300" alt="VP P-wave velocity sphere plot">
 </p>
 
 <p align="center">
@@ -432,9 +434,9 @@ Effective properties are computed using AEH along with analytical bounds (Voigt,
 
 ```
 Effective conductivity kappa_AEH (W/(m K)):
-      4.2183     -0.0022     -0.0150
-     -0.0022      3.1892     -0.0205
-     -0.0150     -0.0205      4.6484
+      4.0204     -0.0091      0.1488
+     -0.0091      3.7421     -0.0630
+      0.1488     -0.0630      5.1362
 ```
 
 ## 6. Next Steps

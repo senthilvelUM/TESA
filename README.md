@@ -11,16 +11,16 @@
 TESA Toolbox is a Python-based computational tool for evaluating the effective (homogenized) thermo-elastic and thermal transport properties of polycrystalline materials directly from EBSD (Electron Backscatter Diffraction) microstructure data. It uses the **Asymptotic Expansion Homogenization (AEH)** finite element method to bridge the gap between single-crystal properties and bulk polycrystalline behavior.
 
 <p align="center">
-  <img src="docs/images/grains_numbered.png" width="380" alt="Numbered grain map">
-  <img src="docs/images/final_mesh.png" width="380" alt="Conforming FE mesh">
+  <img src="docs/images/grains_numbered.png" height="350" alt="Numbered grain map">
+  <img src="docs/images/final_mesh.png" height="350" alt="Conforming FE mesh">
 </p>
 <p align="center">
-  <img src="docs/images/sigma_11.png" width="380" alt="Microscale stress field">
-  <img src="docs/images/q_vector_2D.png" width="380" alt="Heat flux vectors">
+  <img src="docs/images/sigma_11.png" height="300" alt="Microscale stress field">
+  <img src="docs/images/q_vector_2D.png" height="300" alt="Heat flux vectors">
 </p>
 <p align="center">
-  <img src="docs/images/VP_lambert.png" width="380" alt="P-wave velocity Lambert projection">
-  <img src="docs/images/VP_sphere.png" width="380" alt="P-wave velocity sphere plot">
+  <img src="docs/images/VP_lambert.png" height="300" alt="P-wave velocity Lambert projection">
+  <img src="docs/images/VS1_sphere.png" height="300" alt="S-wave velocity sphere plot">
 </p>
 
 **New to TESA?** See the **[Tutorial](docs/Tutorial.md)** for a step-by-step walkthrough using the included sample data.

@@ -477,7 +477,8 @@ def plot_stress_strain_field(ms, field_index, field_name, field_label, field_uni
     if settings is None:
         settings = {}
     figure_dpi = settings.get("figure_dpi", 150)
-    field_fontsize = settings.get("field_fontsize", 12)
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
 
     # Determine plot style based on mesh type
     # "default" resolves to: rbf for Type 1 (conforming), smooth for Type 2 (non-conforming)
@@ -510,7 +511,7 @@ def plot_stress_strain_field(ms, field_index, field_name, field_label, field_uni
     fig, ax = plt.subplots(1, 1, figsize=(8, 7))
 
     # Colorbar label
-    cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
+    cb_title = f'{field_label}\n({field_unit})' if field_unit else field_label
 
     # Get colormap from settings
     cmap_name = settings.get("field_colormap", "jet")
@@ -527,22 +528,22 @@ def plot_stress_strain_field(ms, field_index, field_name, field_label, field_uni
         # Grain-aware RBF interpolation (smooth within grains, discontinuous at boundaries)
         sm, vmin, vmax = _plot_rbf_field(ax, ms, field_data, p3, t3, scale_factor, cmap=cmap_name)
         cb = fig.colorbar(sm, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     elif plot_style == "smooth":
         # Interpolate to nodes for smooth Gouraud shading
         nodal_values = _qp_to_nodal(field_data, nElements, nCornerNodes, t3)
         tpc = ax.tripcolor(tri, nodal_values, shading='gouraud', cmap=cmap_name, norm=robust_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     else:
         # Element-level flat shading (default)
         elem_values = _qp_to_element_avg(field_data, nElements)
         tpc = ax.tripcolor(tri, facecolors=elem_values, cmap=cmap_name, norm=robust_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Overlay original (unsmoothed) grain boundaries
     if settings.get("show_grain_boundaries", True):
@@ -578,7 +579,7 @@ def plot_stress_strain_field(ms, field_index, field_name, field_label, field_uni
         title_line2 += '  ⚠ Uniform field'
     elif max_abs < 1e-6:
         title_line2 += f'  ⚠ Very small values'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=12)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize)
 
     # Save to {subfolder}
     if analysis_dir:

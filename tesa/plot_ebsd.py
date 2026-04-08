@@ -182,6 +182,8 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
     _grain_cmap_name = settings.get("grain_colormap", "tab20")
     _grain_alpha = settings.get("grain_colormap_alpha", 0.9)
     _phase_alpha = settings.get("phase_colors_alpha", 0.9)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
+    figure_fontsize = settings.get("figure_fontsize", 12)
 
     if console_on:
         print("\n── Stage 1 visualization ──")
@@ -238,7 +240,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
     ax.set_xlim(x_edges[0], x_edges[-1])
     ax.set_ylim(y_edges[0], y_edges[-1])
     ax.set_aspect('equal')
-    ax.set_title(f'{_title_info}\n{len(unique_phases)} Phases', fontsize=12)
+    ax.set_title(f'{_title_info}\n{len(unique_phases)} Phases', fontsize=figure_title_fontsize)
     # Add legend with point counts and fractions
     from matplotlib.patches import Patch as _PatchPM
     _pm_legend = []
@@ -247,7 +249,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
         _ph_name = ms.PhaseName[ph-1] if ms.PhaseName and ph-1 < len(ms.PhaseName) and ms.PhaseName[ph-1] else f"Phase {ph}"
         _pm_legend.append(_PatchPM(facecolor=c, edgecolor='k',
                                     label=f'Phase {ph}: {_ph_name}'))
-    ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+    ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
     _save_fig(fig, fig_dir, _next_fig_name('phase_map.png'), console_on, show_figures, figure_pause, figure_dpi)
 
     # ── Figure: Euler angles as filled pixels (3 panels) ───────────────
@@ -275,8 +277,8 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
                 g_arr = np.asarray(g)
                 closed = np.vstack([g_arr, g_arr[0:1, :]])
                 ax.plot(closed[:, 0], closed[:, 1], 'k-', linewidth=0.4)
-        ax.set_title(f'{euler_labels_px[col]}', fontsize=11)
-    fig.suptitle(f'{_title_info}\nEuler Angles', fontsize=13)
+        ax.set_title(f'{euler_labels_px[col]}', fontsize=figure_title_fontsize)
+    fig.suptitle(f'{_title_info}\nEuler Angles', fontsize=figure_title_fontsize)
     fig.tight_layout()
     _save_fig(fig, fig_dir, _next_fig_name('euler_angles.png'), console_on, show_figures, figure_pause, figure_dpi)
 
@@ -406,7 +408,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
     ax.set_ylim(coords[:,1].min()-0.5, coords[:,1].max()+0.5)
     ax.set_aspect('equal')
     ax.set_title(f'{_title_info}\n{len(ms.Grains)} Grains',
-                 fontsize=12)
+                 fontsize=figure_title_fontsize)
     _save_fig(fig, fig_dir, _next_fig_name('grains.png'), console_on, show_figures, figure_pause, figure_dpi)
 
     # ── Figure: Grain boundaries with grain numbers ───────────────────
@@ -446,7 +448,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
     ax.set_ylim(coords[:,1].min()-0.5, coords[:,1].max()+0.5)
     ax.set_aspect('equal')
     ax.set_title(f'{_title_info}\n{len(ms.Grains)} Grains',
-                 fontsize=12)
+                 fontsize=figure_title_fontsize)
     _save_fig(fig, fig_dir, _next_fig_name('grains_numbered.png'), console_on, show_figures, figure_pause, figure_dpi)
 
     # ── Figure 03a3: Phase-colored grain map (Euler-angle shading) ─────
@@ -509,7 +511,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
         _ph_name = ms.PhaseName[ph-1] if ms.PhaseName and ph-1 < len(ms.PhaseName) and ms.PhaseName[ph-1] else f"Phase {ph}"
         _phase_legend.append(_Patch(facecolor=rgba, edgecolor='k',
                                      label=f'Phase {ph}: {_ph_name}'))
-    ax.legend(handles=_phase_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+    ax.legend(handles=_phase_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
 
     # Reuse the hole-aware label positions from 03a2
     for i, cxy, g_arr in _centroids:
@@ -522,7 +524,7 @@ def plot_ebsd(ms, run_dir, ebsd_file=None, log_path=None, settings=None):
     ax.set_ylim(coords[:,1].min()-0.5, coords[:,1].max()+0.5)
     ax.set_aspect('equal')
     ax.set_title(f'{_title_info}\n{len(ms.Grains)} Grains — Phase Colored',
-                 fontsize=12)
+                 fontsize=figure_title_fontsize)
     _save_fig(fig, fig_dir, _next_fig_name('grains_phase.png'), console_on, show_figures, figure_pause, figure_dpi)
 
     # ── Append figure list to log.md ───────────────────────────────────

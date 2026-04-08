@@ -43,7 +43,8 @@ def plot_chi(ms, k, l, i, analysis_dir=None, settings=None):
     if settings is None:
         settings = {}
     figure_dpi = settings.get("figure_dpi", 150)
-    field_fontsize = settings.get("field_fontsize", 12)
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
 
     # Map (k,l) to chi column using Voigt contraction
     voigt_idx = contract(k, l)  # 1-based (1-6)
@@ -89,8 +90,8 @@ def plot_chi(ms, k, l, i, analysis_dir=None, settings=None):
     # Continuous (smooth) filled contour plot using tripcolor on sub-elements
     tpc = ax.tripcolor(tri, u_i_all, shading='gouraud', cmap=cmap_name)
     cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-    cb.set_label(f'$\\chi^{{{strain_label}}}_{{{i}}}$', fontsize=field_fontsize)
-    cb.ax.tick_params(labelsize=field_fontsize)
+    cb.ax.set_title(f'$\\chi^{{{strain_label}}}_{{{i}}}$', fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+    cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Overlay original (unsmoothed) grain boundaries
     if settings.get("show_grain_boundaries", True):
@@ -117,7 +118,7 @@ def plot_chi(ms, k, l, i, analysis_dir=None, settings=None):
     fmax = np.max(u_i_all)
     title_line1 = f'{ebsd_name}: $\\chi^{{{strain_label}}}_{{{i}}}$ — $\\varepsilon_{{{strain_label}}}$ displacement $u_{{{i}}}$'
     title_line2 = f'Min = {fmin:.2f}, Max = {fmax:.2f}'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=12)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize)
 
     # Save to "chi" subfolder (no figure numbering)
     if analysis_dir:

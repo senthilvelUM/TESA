@@ -149,7 +149,8 @@ def plot_heat_flux_field(ms, field_index, field_name, field_label, field_unit,
         settings = {}
     figure_dpi = settings.get("figure_dpi", 150)
     cmap_name = settings.get("field_colormap", "jet")
-    field_fontsize = settings.get("field_fontsize", 12)
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
 
     # Determine plot style based on mesh type
     # "default" resolves to: rbf for Type 1 (conforming), smooth for Type 2 (non-conforming)
@@ -184,8 +185,8 @@ def plot_heat_flux_field(ms, field_index, field_name, field_label, field_unit,
     # Create figure
     fig, ax = plt.subplots(1, 1, figsize=(8, 7))
 
-    # Colorbar label
-    cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
+    # Colorbar title (horizontal, unit on second line)
+    cb_title = f'{field_label}\n({field_unit})' if field_unit else field_label
 
     # Compute robust color limits: mean ± 2.5σ (clips corner singularities)
     import matplotlib.colors as _mcolors
@@ -205,22 +206,22 @@ def plot_heat_flux_field(ms, field_index, field_name, field_label, field_unit,
         from .plot_stress_strain import _plot_rbf_field
         sm, vmin, vmax = _plot_rbf_field(ax, ms, field_data, p3, t3, scale_factor, cmap=cmap_name)
         cb = fig.colorbar(sm, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     elif plot_style == "smooth":
         # Smooth Gouraud shading
         nodal_values = _qp_to_nodal(field_data, nElements, nCornerNodes, t3)
         tpc = ax.tripcolor(tri, nodal_values, shading='gouraud', cmap=cmap_name, norm=robust_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     else:
         # Element-level flat shading
         elem_values = _qp_to_element_avg(field_data, nElements)
         tpc = ax.tripcolor(tri, facecolors=elem_values, cmap=cmap_name, norm=robust_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Overlay original grain boundaries
     if settings.get("show_grain_boundaries", True):
@@ -255,7 +256,7 @@ def plot_heat_flux_field(ms, field_index, field_name, field_label, field_unit,
         title_line2 += '  ⚠ Values ≈ 0'
     elif val_range / (max_abs + 1e-30) < 1e-6:
         title_line2 += '  ⚠ Uniform field'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=12)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize)
 
     # Save figure
     if analysis_dir is not None:
@@ -305,7 +306,8 @@ def plot_heat_flux_vectors(ms, analysis_dir=None, settings=None,
     arrow_length = settings.get("arrow_length", 1.5)
     arrow_alpha = settings.get("arrow_alpha", 1.0)
     arrow_stem_width = settings.get("arrow_stem_width", 0.0012)
-    field_fontsize = settings.get("field_fontsize", 12)
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
 
     # Determine plot style based on mesh type
     # "default" resolves to: rbf for Type 1 (conforming), smooth for Type 2 (non-conforming)
@@ -356,7 +358,7 @@ def plot_heat_flux_vectors(ms, analysis_dir=None, settings=None,
     # ── Create figure ────────────────────────────────────────────────
     fig, ax = plt.subplots(1, 1, figsize=(8, 7))
 
-    cb_label = f'{field_label} ({field_unit})'
+    cb_title = f'{field_label}\n({field_unit})'
 
     # Ensure QP coordinates are available for RBF background
     if ms.Microfield is None or ms.Microfield[0] is None:
@@ -377,20 +379,20 @@ def plot_heat_flux_vectors(ms, analysis_dir=None, settings=None,
         from .plot_stress_strain import _plot_rbf_field
         sm, vmin, vmax = _plot_rbf_field(ax, ms, mag_2d, p3, t3, 1.0, cmap=cmap_name)
         cb = fig.colorbar(sm, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     elif plot_style == "smooth":
         nodal_values = _qp_to_nodal(mag_2d, nElements, nCornerNodes, t3)
         tpc = ax.tripcolor(tri, nodal_values, shading='gouraud', cmap=cmap_name, norm=bg_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
     else:
         elem_values = _qp_to_element_avg(mag_2d, nElements)
         tpc = ax.tripcolor(tri, facecolors=elem_values, cmap=cmap_name, norm=bg_norm)
         cb = fig.colorbar(tpc, ax=ax, shrink=0.85)
-        cb.set_label(cb_label, fontsize=field_fontsize)
-        cb.ax.tick_params(labelsize=field_fontsize)
+        cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+        cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Overlay arrows using quiver — explicit scaling, no auto-scale
     # scale=1 with scale_units='xy' means vv1,vv2 are in data coordinates
@@ -434,7 +436,7 @@ def plot_heat_flux_vectors(ms, analysis_dir=None, settings=None,
     fmean_vec = _compute_field_mean(mag_2d, ms)
     title_line1 = f'{ebsd_name}: {title_field}'
     title_line2 = f'Min = {fmin_vec:.2f}, Mean = {fmean_vec:.2f}, Max = {fmax_vec:.2f} {field_unit}'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=12)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize)
 
     # Save (microscale field plots are not displayed on screen — too many figures)
     if analysis_dir is not None:

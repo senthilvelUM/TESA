@@ -89,6 +89,8 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     if "random_seed" not in settings:
         print("  WARNING: 'random_seed' not in settings, using default 42")
     random_seed = settings.get("random_seed", 42)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
+    figure_fontsize = settings.get("figure_fontsize", 12)
     # Phase color palette from global settings (fall back to default if missing)
     if "phase_colors" not in settings:
         print("  WARNING: 'phase_colors' not in settings, using default palette")
@@ -221,7 +223,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     ax.set_aspect('equal')
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.set_title(f'{_title_info}\nOriginal Grains with Smoothed Boundaries', fontsize=12)
+    ax.set_title(f'{_title_info}\nOriginal Grains with Smoothed Boundaries', fontsize=figure_title_fontsize)
     fig.tight_layout()
     save(fig, os.path.join('diagnostics', _next_fig_name('grain_overlay_comparison.png')))
     
@@ -373,7 +375,9 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     # ── Figure 04a: Mesh size function contour ────────────────────────────────
     fig, ax = plt.subplots(figsize=(9, 9))
     cf = ax.contourf(xx_msf, yy_msf, hh_msf, levels=30, cmap='viridis')
-    plt.colorbar(cf, ax=ax, label='Element size h')
+    cb = plt.colorbar(cf, ax=ax, shrink=0.75)
+    cb.ax.set_title('Element\nsize h', fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+    cb.ax.tick_params(labelsize=figure_fontsize)
     for g in valid_gs:
         closed = np.vstack([g, g[0:1]])
         ax.plot(closed[:, 0], closed[:, 1], 'w-', linewidth=0.5, alpha=0.7)
@@ -382,7 +386,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_title(f'{_title_info}\nMesh Size Function (min={hh_msf.min():.3f}, max={hh_msf.max():.3f})',
-                 fontsize=12)
+                 fontsize=figure_title_fontsize)
     save(fig, _next_fig_name('mesh_size_function.png'))
     
     # ── Figure 05a: Junction points on grain boundaries ─────────────────────
@@ -396,8 +400,8 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     ax.set_aspect('equal')
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.legend(loc='upper right', fontsize=10)
-    ax.set_title(f'{_title_info}\nJunction Points ({jpts.shape[0]} points)', fontsize=12)
+    ax.legend(loc='upper right', fontsize=figure_fontsize)
+    ax.set_title(f'{_title_info}\nJunction Points ({jpts.shape[0]} points)', fontsize=figure_title_fontsize)
     save(fig, os.path.join('diagnostics', _next_fig_name('junction_points.png')))
     
     # ═══════════════════════════════════════════════════════════════════════════
@@ -431,7 +435,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_title(f'{_title_info}\nInitial Mesh — {t_init.shape[0]} elements, {p_all_init.shape[0]} nodes',
-                 fontsize=12)
+                 fontsize=figure_title_fontsize)
     save(fig, os.path.join('diagnostics', _next_fig_name('initial_mesh_triangulated.png')))
     
     print(f"\n  Pipeline ready: {len(ms.GrainsSmoothed)} grains, "
@@ -608,7 +612,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
         ax_i.set_title(f'Iteration {iteration} [{ebsd_name}]\n'
                         f'{tris.shape[0]} elements, {pts.shape[0]} nodes | '
                         f'q_min={_q_min_global:.4f}, q_worst_avg={_q_worst_avg_global:.4f}, '
-                        f'q_mean={_q_mean_global:.4f}', fontsize=12)
+                        f'q_mean={_q_mean_global:.4f}', fontsize=figure_title_fontsize)
         png_path = os.path.join(_iter_png_dir, f'iter_{iteration:04d}.png')
         fig_i.savefig(png_path, dpi=figure_dpi, bbox_inches='tight')
         _iter_png_files.append(png_path)
@@ -632,7 +636,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
             ax_mesh.set_title(f'Iteration {iteration} [{ebsd_name}]\n'
                               f'{tris.shape[0]} elements, {pts.shape[0]} nodes | '
                               f'q_min={_q_min_global:.4f}, q_worst_avg={_q_worst_avg_global:.4f}, '
-                              f'q_mean={_q_mean_global:.4f}', fontsize=11)
+                              f'q_mean={_q_mean_global:.4f}', fontsize=figure_title_fontsize)
 
             # Right panel: convergence history up to this iteration
             from matplotlib.ticker import MaxNLocator as _MaxNLocator_iter
@@ -649,10 +653,10 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
                             alpha=0.5, label=f'q_mean target = {q_mean_target}')
             ax_conv.set_ylim(0.0, 1.0)
             ax_conv.xaxis.set_major_locator(_MaxNLocator_iter(integer=True))
-            ax_conv.set_xlabel('Iteration', fontsize=11)
-            ax_conv.set_ylabel('Quality', fontsize=11)
-            ax_conv.set_title('Convergence History', fontsize=11)
-            ax_conv.legend(fontsize=9, loc='lower left')
+            ax_conv.set_xlabel('Iteration', fontsize=figure_fontsize)
+            ax_conv.set_ylabel('Quality', fontsize=figure_fontsize)
+            ax_conv.set_title('Convergence History', fontsize=figure_title_fontsize)
+            ax_conv.legend(fontsize=figure_fontsize, loc='lower left')
             ax_conv.grid(True, alpha=0.3)
 
             fig_display.tight_layout()
@@ -698,7 +702,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
         ax_mesh_f.set_title(f'Final Iteration {_fi} [{ebsd_name}]\n'
                             f'{_ft.shape[0]} elements, {_fp.shape[0]} nodes  |  '
                             f'q_min={_fqmin:.4f}, q_worst_avg={_fqworstavg:.4f}, '
-                            f'q_mean={_fqmean:.4f}', fontsize=11)
+                            f'q_mean={_fqmean:.4f}', fontsize=figure_title_fontsize)
 
         # Right panel: full convergence history
         from matplotlib.ticker import MaxNLocator as _MaxNLocator
@@ -715,10 +719,10 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
                           alpha=0.5, label=f'q_mean target = {q_mean_target}')
         ax_conv_f.set_ylim(0.0, 1.0)
         ax_conv_f.xaxis.set_major_locator(_MaxNLocator(integer=True))
-        ax_conv_f.set_xlabel('Iteration', fontsize=11)
-        ax_conv_f.set_ylabel('Quality', fontsize=11)
-        ax_conv_f.set_title('Convergence History', fontsize=11)
-        ax_conv_f.legend(fontsize=9, loc='lower left')
+        ax_conv_f.set_xlabel('Iteration', fontsize=figure_fontsize)
+        ax_conv_f.set_ylabel('Quality', fontsize=figure_fontsize)
+        ax_conv_f.set_title('Convergence History', fontsize=figure_title_fontsize)
+        ax_conv_f.legend(fontsize=figure_fontsize, loc='lower left')
         ax_conv_f.grid(True, alpha=0.3)
 
         fig_f.tight_layout()
@@ -753,26 +757,34 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     
     # ── Convergence history plot ────────────────────────────────────────────
     if convergence_history['iterations']:
-        fig_conv, ax_conv_hist = plt.subplots(figsize=(8, 5))
+        fig_conv, (ax_conv_hist, ax_leg) = plt.subplots(1, 2, figsize=(10, 5),
+                                                         gridspec_kw={'width_ratios': [3, 1]})
         iters = convergence_history['iterations']
         q_mins = convergence_history['q_min']
         q_worst_avgs = convergence_history['q_worst_avg']
         q_means = convergence_history['q_mean']
 
         # All three quality measures on a single panel
-        ax_conv_hist.plot(iters, q_means, 's-', color='tab:red', markersize=4, label='q_mean')
-        ax_conv_hist.plot(iters, q_worst_avgs, 'D-', color='tab:green', markersize=4, label='q_worst_avg (0.5%)')
-        ax_conv_hist.plot(iters, q_mins, 'o-', color='tab:blue', markersize=4, label='q_min')
-        ax_conv_hist.axhline(y=q_mean_target, color='tab:red', linestyle='--', linewidth=0.8,
+        h1, = ax_conv_hist.plot(iters, q_means, 's-', color='tab:red', markersize=4, label='q_mean')
+        h2, = ax_conv_hist.plot(iters, q_worst_avgs, 'D-', color='tab:green', markersize=4, label='q_worst_avg (0.5%)')
+        h3, = ax_conv_hist.plot(iters, q_mins, 'o-', color='tab:blue', markersize=4, label='q_min')
+        h4 = ax_conv_hist.axhline(y=q_mean_target, color='tab:red', linestyle='--', linewidth=0.8,
                              alpha=0.5, label=f'q_mean target = {q_mean_target}')
-        ax_conv_hist.axhline(y=q_worst_avg_target, color='tab:green', linestyle='--', linewidth=0.8,
+        h5 = ax_conv_hist.axhline(y=q_worst_avg_target, color='tab:green', linestyle='--', linewidth=0.8,
                              alpha=0.5, label=f'q_worst_avg target = {q_worst_avg_target}')
-        ax_conv_hist.set_ylabel('Quality', fontsize=11)
+        ax_conv_hist.set_ylabel('Quality', fontsize=figure_fontsize)
         ax_conv_hist.set_ylim(0.0, 1.0)
-        ax_conv_hist.set_xlabel('Iteration', fontsize=11)
-        ax_conv_hist.set_title(f'{ebsd_name} — Mesh Quality Convergence', fontsize=12)
-        ax_conv_hist.legend(fontsize=9, loc='center right')
+        ax_conv_hist.set_xlabel('Iteration', fontsize=figure_fontsize)
+        ax_conv_hist.set_title(f'{ebsd_name} — Mesh Quality Convergence', fontsize=figure_title_fontsize)
         ax_conv_hist.grid(True, alpha=0.3)
+
+        # Place legend in the dedicated right panel
+        ax_leg.axis('off')
+        ax_leg.legend(handles=[h1, h2, h3, h4, h5],
+                      labels=['q_mean', 'q_worst_avg (0.5%)', 'q_min',
+                              f'q_mean target = {q_mean_target}',
+                              f'q_worst_avg target = {q_worst_avg_target}'],
+                      fontsize=figure_fontsize, loc='center', frameon=True)
 
         fig_conv.tight_layout()
         save(fig_conv, _next_fig_name('mesh_quality_convergence.png'))
@@ -1315,7 +1327,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     _mb_q = simpqual(_mb_p, _mb_t)
     ax.set_title(f'{_title_info}\nFinal Mesh — {_mb_ne} elements, {_mb_nn} nodes\n'
                  f'Quality: min={_mb_q.min():.4f}, mean={_mb_q.mean():.4f}  |  '
-                 f'Area: {_mb_area_sum:.1f}/{_mb_domain_area:.0f}', fontsize=11)
+                 f'Area: {_mb_area_sum:.1f}/{_mb_domain_area:.0f}', fontsize=figure_title_fontsize)
     save(fig, _next_fig_name('final_mesh.png'))
     
     # ── Final mesh overlaid on original grain boundaries ─────────────────────
@@ -1345,7 +1357,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     for _sp in ax.spines.values(): _sp.set_visible(False)
     ax.set_title(f'{_title_info}\nFinal Mesh on Original Grain Boundaries\n'
                  f'{_mb_t.shape[0]} elements, {_mb_p.shape[0]} nodes',
-                 fontsize=11)
+                 fontsize=figure_title_fontsize)
     save(fig, _next_fig_name('final_mesh_on_original_GB.png'))
 
     # ── Final mesh overlaid on original phase map ────────────────────────────
@@ -1384,10 +1396,10 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
         _rgba = _mcolors_global.to_rgba(_phase_base_colors[(_ph - 1) % len(_phase_base_colors)])
         _ph_name = ms.PhaseName[_ph-1] if ms.PhaseName and _ph-1 < len(ms.PhaseName) and ms.PhaseName[_ph-1] else f"Phase {_ph}"
         _pm_legend.append(_PatchPM(facecolor=_rgba, edgecolor='k', label=f'Phase {_ph}: {_ph_name}'))
-    ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+    ax.legend(handles=_pm_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
     ax.set_title(f'{_title_info}\nFinal Mesh on Phase Map\n'
                  f'{_mb_t.shape[0]} elements, {_mb_p.shape[0]} nodes',
-                 fontsize=11)
+                 fontsize=figure_title_fontsize)
     save(fig, _next_fig_name('final_mesh_on_original_phase_map.png'))
 
     # ── Phase-colored mesh with Euler-angle shading ──────────────────────────
@@ -1460,10 +1472,10 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
         _rgba = _mb_phase_base_rgba.get(int(_ph), (0.5, 0.5, 0.5, 1.0))
         _ph_name = ms.PhaseName[int(_ph)-1] if ms.PhaseName and int(_ph)-1 < len(ms.PhaseName) and ms.PhaseName[int(_ph)-1] else f"Phase {int(_ph)}"
         _mb_legend.append(_mb_Patch(facecolor=_rgba, edgecolor='k', label=f'Phase {int(_ph)}: {_ph_name}'))
-    ax.legend(handles=_mb_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=9)
+    ax.legend(handles=_mb_legend, loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=figure_fontsize)
     ax.set_title(f'Phase Coloring [{ebsd_name}] (Euler shading)\n'
                  f'{_mb_ne} elements, {_mb_nn} nodes  |  '
-                 f'{_mb_n_phases} phases, {_mb_n_grains} grains', fontsize=11)
+                 f'{_mb_n_phases} phases, {_mb_n_grains} grains', fontsize=figure_title_fontsize)
     save(fig, os.path.join('diagnostics', _next_fig_name('final_mesh_phase.png')))
     
     # ── Worst element quality highlight ──────────────────────────────────────
@@ -1504,7 +1516,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
                  arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
     ax1.set_title(f'{_title_info}\nElement Quality Map (top 10 worst circled)\n'
                   f'min={_mb_q.min():.6f}, mean={_mb_q.mean():.4f}, '
-                  f'elements with q<0.1: {np.sum(_mb_q < 0.1)}', fontsize=11)
+                  f'elements with q<0.1: {np.sum(_mb_q < 0.1)}', fontsize=figure_title_fontsize)
 
     # Right panel: zoomed view around worst element
     _mb_zoom = max(3.0, max(_mb_d01, _mb_d12, _mb_d02) * 5)
@@ -1534,7 +1546,7 @@ def mesh_conforming(ms, job, run_dir=None, log_path=None, settings=None):
     ax2.grid(True, alpha=0.3)
     ax2.set_title(f'Zoomed: Worst Element (q={_mb_q[_mb_w0]:.6f})\n'
                   f'area={_mb_w_area:.6f}, edges=[{_mb_d01:.4f},{_mb_d12:.4f},{_mb_d02:.4f}]',
-                  fontsize=11)
+                  fontsize=figure_title_fontsize)
     fig.tight_layout()
     save(fig, os.path.join('diagnostics', _next_fig_name('final_mesh_worst_element.png')))
     

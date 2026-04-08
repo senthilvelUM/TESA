@@ -67,6 +67,8 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     """
     figure_dpi = settings.get("figure_dpi", 150)
     cmap_name = settings.get("field_colormap", "turbo")
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
 
     # Project lower hemisphere to 2D Lambert equal-area disk
     # z ranges from -1 (south pole → origin) to 0 (equator → boundary at r=sqrt(2))
@@ -95,13 +97,14 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     ax.plot([r, r + tick_len], [0, 0], 'k-', linewidth=1.5)
     ax.plot([0, 0], [r, r + tick_len], 'k-', linewidth=1.5)
     offset = r + 0.15
-    ax.text(offset + tick_len, 0, 'x', ha='left', va='center', fontsize=12, fontweight='bold')
-    ax.text(0, offset + tick_len, 'y', ha='center', va='bottom', fontsize=12, fontweight='bold')
+    ax.text(offset + tick_len, 0, 'x', ha='left', va='center', fontsize=figure_fontsize, fontweight='bold')
+    ax.text(0, offset + tick_len, 'y', ha='center', va='bottom', fontsize=figure_fontsize, fontweight='bold')
 
     # Colorbar with unit label
-    cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
     cb = fig.colorbar(pcm, ax=ax, shrink=0.75, pad=0.05)
-    cb.set_label(cb_label, fontsize=12, rotation=270, labelpad=15)
+    cb_title = f'{field_label}\n({field_unit})' if field_unit else field_label
+    cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+    cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Formatting
     ax.set_aspect('equal')
@@ -110,8 +113,9 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     for spine in ax.spines.values():
         spine.set_visible(False)
     margin = 0.3
+    top_margin = 0.55
     ax.set_xlim(-r - margin, r + margin)
-    ax.set_ylim(-r - margin, r + margin)
+    ax.set_ylim(-r - margin, r + top_margin)
 
     # Title with min/max and anisotropy
     fmin = np.nanmin(field)
@@ -120,7 +124,7 @@ def plot_wave_speed_lambert(XC, YC, ZC, field, field_label, field_unit,
     aniso_str = f" ({aniso_pct:.2f}%)" if aniso_pct is not None else ""
     title_line1 = f'{ebsd_name}: {method_name} {field_label}{aniso_str}'
     title_line2 = f'Min = {fmin:.4f}, Mean = {fmean:.4f}, Max = {fmax:.4f} {field_unit}'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=12)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize, pad=figure_title_fontsize * 2.5)
 
     # Save
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -163,6 +167,8 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     """
     figure_dpi = settings.get("figure_dpi", 150)
     cmap_name = settings.get("field_colormap", "turbo")
+    figure_fontsize = settings.get("figure_fontsize", 12)
+    figure_title_fontsize = settings.get("figure_title_fontsize", 14)
     # Wave speed plots are never displayed on screen (too many figures);
     # they are always saved to files only.
 
@@ -210,9 +216,9 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
 
     # Place axis labels at the tips
     label_offset = L + 0.15
-    ax.text(label_offset, 0, 0, 'x', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
-    ax.text(0, label_offset, 0, 'y', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
-    ax.text(0, 0, label_offset, 'z', fontsize=13, fontweight='bold', ha='center', va='center', zorder=10)
+    ax.text(label_offset, 0, 0, 'x', fontsize=figure_fontsize, fontweight='bold', ha='center', va='center', zorder=10)
+    ax.text(0, label_offset, 0, 'y', fontsize=figure_fontsize, fontweight='bold', ha='center', va='center', zorder=10)
+    ax.text(0, 0, label_offset, 'z', fontsize=figure_fontsize, fontweight='bold', ha='center', va='center', zorder=10)
 
     # Set axis limits tight to the sphere so it fills the frame
     ax.set_xlim([-0.85, 0.85])
@@ -222,9 +228,10 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     # Add colorbar via ScalarMappable
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
-    cb_label = f'{field_label} ({field_unit})' if field_unit else field_label
     cb = fig.colorbar(sm, ax=ax, shrink=0.6, pad=0.1)
-    cb.set_label(cb_label, fontsize=12)
+    cb_title = f'{field_label}\n({field_unit})' if field_unit else field_label
+    cb.ax.set_title(cb_title, fontsize=figure_fontsize, pad=figure_fontsize * 0.6)
+    cb.ax.tick_params(labelsize=figure_fontsize)
 
     # Title
     fmin = np.nanmin(field)
@@ -233,7 +240,7 @@ def plot_wave_speed_sphere(XC, YC, ZC, field, field_label, field_unit,
     aniso_str = f" ({aniso_pct:.2f}%)" if aniso_pct is not None else ""
     title_line1 = f'{ebsd_name}: {method_name} {field_label}{aniso_str}'
     title_line2 = f'Min = {fmin:.4f}, Mean = {fmean:.4f}, Max = {fmax:.4f} {field_unit}'
-    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=11)
+    ax.set_title(f'{title_line1}\n{title_line2}', fontsize=figure_title_fontsize)
 
     # Save
     os.makedirs(os.path.dirname(save_path), exist_ok=True)

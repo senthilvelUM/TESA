@@ -16,8 +16,10 @@ settings = {
 
     # ── Figure display ────────────────────────────────────────────
     "show_figures": True,               # True = display figures on screen, False = save to files only
-    "figure_pause": 1.0,               # Seconds to display each figure on screen (if show_figures=True)
+    "figure_pause": 1.0,                # Seconds to display each figure on screen (if show_figures=True)
     "figure_dpi": 150,                  # Resolution of saved figures (dots per inch)
+    "figure_fontsize": 16,              # Font size for all non-title text (colorbar labels, tick labels, axis labels)
+    "figure_title_fontsize": 14,        # Font size for figure titles
 
     # ── Microstructure plot colors ────────────────────────────────
     "phase_colors": ['red', 'lime', 'tab:blue', 'tab:orange', 'tab:purple',
@@ -34,10 +36,9 @@ settings = {
     # ── Field plot settings ───────────────────────────────────────
     "field_colormap": "turbo",          # Colormap for field plots: "rainbow", "turbo", "jet", "viridis"
     "field_plot_style": "default",      # "default" = rbf for Type 1, smooth for Types 2/3. Or "element" for Types 2/3.
-    "field_fontsize": 16,               # Font size for colorbar labels and tick labels in field plots
     "show_grain_boundaries": True,      # True = overlay grain boundaries on field plots, False = suppress
     "arrow_length": 1.65,               # Arrow length scale factor (1.0=one grid cell, 0.5=shorter, 2.0=longer)
-    "arrow_stem_width": 0.0012,          # Shaft width as fraction of plot width
+    "arrow_stem_width": 0.0012,         # Shaft width as fraction of plot width
     "arrow_alpha": 0.9,                 # Opacity of vector arrows (0.0=invisible, 1.0=opaque)
 
     # ── Reproducibility ───────────────────────────────────────────
@@ -138,12 +139,12 @@ jobs = [
         "min_grain_pixels": 10,                             # Minimum data points per grain; grains at or below this are merged (requires remove_small_grains=True)
         
         # ── Mesh generation ───────────────────────────────────────────
-        "reuse_mesh": True,                                 # Save mesh after generation; load saved mesh if available
+        "reuse_mesh": True,                                # Save mesh after generation; load saved mesh if available
         "mesh_type": 1,                                     # 1=conforming non-uniform, 2=non-conforming hexgrid, 3=non-conforming rectangular
         "target_elements": 10000,                           # Target number of elements (all mesh types; actual count ±10-15%)
         
         # ── Type 1 mesh settings (conforming non-uniform) ────────────
-        "mesh_convergence": [10, 0.2, 0.8, 20],             # [min_iter, q_worst_avg, q_mean, max_iter]. Recommended [25, 0.2, 0.8, 50]
+        "mesh_convergence": [10, 0.2, 0.8, 15],             # [min_iter, q_worst_avg, q_mean, max_iter]. Recommended [25, 0.2, 0.8, 50]
         "mesh_floor_ratio": 0.2,                           # h_min = floor × h_max. Limits max/min element size ratio.
                                                             # 0.2 = smallest element ≥ 20% of largest (ratio ≤ 5.0). 0 = no floor.
         "junction_refine_ratio": 0.7,                       # Refine mesh near junction (triple) points.
@@ -165,7 +166,7 @@ jobs = [
         "macro_thermal_field": [0, -1, 0],                  # [∂T/∂x1, ∂T/∂x2, ∂T/∂x3] or [q1, q2, q3]
         
         # ── Wave speed settings ──────────────────────────────────────
-        "wave_speed_plots": "VP",                        # "none" = skip, "all" = all 8 fields, or list:
+        "wave_speed_plots": ["VP", "VS1"],                        # "none" = skip, "all" = all 8 fields, or list:
                                                             # ["VP", "VS1", "VS2", "VSH", "VSV", "AVS", "DTS", "DTP"]
         "wave_speed_plot_type": "both",                     # "lambert" = 2D disk, "sphere" = 3D, "both" = both
         "wave_speed_sphere_elev": 30,                         # Sphere plot elevation above x-y plane (degrees)
