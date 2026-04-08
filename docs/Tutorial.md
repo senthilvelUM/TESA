@@ -347,6 +347,13 @@ Stage 2 generates a conforming non-uniform mesh (Type 1) that adapts element siz
   <img src="images/final_mesh.png" height="350" alt="Final conforming mesh">
 </p>
 
+The final mesh is overlaid on the original grain boundaries and the phase map to verify alignment:
+
+<p align="center">
+  <img src="images/final_mesh_on_original_GB.png" height="350" alt="Final mesh on original grain boundaries">
+  <img src="images/final_mesh_on_original_phase_map.png" height="350" alt="Final mesh on original phase map">
+</p>
+
 Mesh quality convergence is tracked using three metrics: q_mean (bulk quality), q_worst_avg (mean quality of the worst 0.5% of elements), and q_min (absolute worst element).
 
 <p align="center">
