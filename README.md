@@ -82,31 +82,31 @@ Material properties are specified in text files using an Abaqus-style `*keyword`
 
 ```
 *phase
-alpha-Quartz
+Quartz
 
 *density
-2650.0
+2650
 
 *stiffness_matrix
-88.2    6.5    12.4    18.8     0.0     0.0
- 6.5   88.2    12.4   -18.8     0.0     0.0
-12.4   12.4   107.2     0.0     0.0     0.0
-18.8  -18.8     0.0    58.5     0.0     0.0
- 0.0    0.0     0.0     0.0    58.5    18.8
- 0.0    0.0     0.0     0.0    18.8    40.9
+  88.2e+9    6.5e+9   12.4e+9  18.8e+9  00.0e+0  00.0e+0
+   6.5e+9   88.2e+9   12.4e+9 -18.8e+9  00.0e+0  00.0e+0
+  12.4e+9   12.4e+9  107.2e+9  00.0e+0  00.0e+0  00.0e+0
+  18.8e+9  -18.8e+9   00.0e+0  58.5e+9  00.0e+0  00.0e+0
+  00.0e+0   00.0e+0   00.0e+0  00.0e+0  58.5e+9  18.8e+9
+  00.0e+0   00.0e+0   00.0e+0  00.0e+0  18.8e+9  40.9e+9
 
 *thermal_expansion
-5.35e-05
-5.35e-05
-2.72e-05
-0.0
-0.0
-0.0
+8.0e-6
+8.0e-6
+14.0e-6
+0.0e+0
+0.0e+0
+0.0e+0
 
 *thermal_conductivity
-6.15    0.0     0.0
-0.0     6.15    0.0
-0.0     0.0     10.17
+6.15 0.0 0.0
+0.0 6.15 0.0
+0.0 0.0 10.17
 ```
 
 Property files for common minerals are included in `property_files/`.
