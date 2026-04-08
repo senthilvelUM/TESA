@@ -422,7 +422,7 @@ TESA computes 3 heat flux components, 3 temperature gradient components, magnitu
 
 TESA computes seismic wave speeds (phase velocities) as a function of propagation direction from the effective stiffness tensor. Wave speeds are plotted as Lambert azimuthal equal-area projections (2D) and as 3D sphere plots.
 
-Below are the P-wave velocity (VP) shown as both a Lambert projection and a 3D sphere, and the shear wave anisotropy (AVS) as a Lambert projection. These are computed from the AEH effective stiffness.
+Below are the P-wave velocity (VP) shown as both a Lambert projection and a 3D sphere, and the S1-wave velocity (VS1) as a 3D sphere. These are computed from the AEH effective stiffness.
 
 <p align="center">
   <img src="images/VP_lambert.png" height="300" alt="VP P-wave velocity Lambert projection">
@@ -430,7 +430,7 @@ Below are the P-wave velocity (VP) shown as both a Lambert projection and a 3D s
 </p>
 
 <p align="center">
-  <img src="images/AVS_lambert.png" width="450" alt="AVS shear wave anisotropy Lambert projection">
+  <img src="images/VS1_sphere.png" width="450" alt="VS1 S-wave velocity sphere plot">
 </p>
 
 TESA computes 8 wave speed fields: VP, VS1, VS2, VSH, VSV, AVS, DTS, and DTP. These are evaluated for the AEH effective stiffness as well as the Voigt, Reuss, Hill, and Geometric Mean bounds, plus the single-crystal stiffness of each phase. All plots are saved in `wave_speed_plots/`.
