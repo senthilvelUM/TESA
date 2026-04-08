@@ -156,9 +156,9 @@ The AEH method implemented in TESA is based on:
 
 For questions about TESA, contact:
 
-Senthil S. Vel 
-Professor of Mechanical Engineering 
-University of Maine, Orono, ME 04469, USA
+Senthil S. Vel, 
+Professor of Mechanical Engineering, 
+University of Maine, Orono, ME 04469, USA. 
 senthil.vel@maine.edu
 
 ## Support Policy
