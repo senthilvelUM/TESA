@@ -152,6 +152,20 @@ The AEH method implemented in TESA is based on:
 
 - Vel, S.S., Cook, A.C., Johnson, S.E., and Gerbi, C. (2016). "Computational homogenization and micromechanical analysis of textured polycrystalline materials." *Computer Methods in Applied Mechanics and Engineering*, 310, 749-779. [doi:10.1016/j.cma.2016.07.037](https://doi.org/10.1016/j.cma.2016.07.037)
 
+## Contact
+
+For questions about TESA, contact:
+
+Senthil S. Vel — senthil.vel@maine.edu
+
+## Support Policy
+
+TESA is provided as-is. The authors do not accept feature requests and are unable to provide individual technical support. Users are welcome to modify, extend, and adapt TESA to suit their own workflows, including building custom GUIs, using AI-assisted coding tools or other means.
+
+## Disclaimer
+
+TESA is free, open-source software provided under the MIT License without any warranty. The authors make no guarantees regarding the accuracy, reliability, or fitness of the computed results for any purpose. Users are solely responsible for verifying all computational outputs before using them in publications, engineering analyses, or any other application.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
