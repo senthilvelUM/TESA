@@ -122,11 +122,11 @@ jobs = [
     {
         # ── EBSD data ─────────────────────────────────────────────────
         "ebsd_file": "EBSD_maps/Tutorial.ang",
-        "study_name": "tutorial_analyses",                          # Results subfolder name (default: "default")
+        "study_name": "tutorial_analyses",                  # Results subfolder name (default: "default")
         "euler_col": 1,
         "xy_col": 4,
-        "phase_col": 6,  # Phase ID column (varies by EBSD format: .ang files typically use 6 or 8)
-        "ref_frame_angle": 90,
+        "phase_col": 6,                                     # Phase ID column (varies by EBSD format: .ang files typically use 6 or 8)
+        "ref_frame_angle": 90,                              # EBSD-to-mesh rotation (degrees). 90 for OIM/EDAX .ang files. See Tutorial for other systems.
         
         # ── Phase properties ──────────────────────────────────────────
         "phase_properties": {
@@ -139,13 +139,13 @@ jobs = [
         "min_grain_pixels": 10,                             # Minimum data points per grain; grains at or below this are merged (requires remove_small_grains=True)
         
         # ── Mesh generation ───────────────────────────────────────────
-        "reuse_mesh": True,                                # Save mesh after generation; load saved mesh if available
+        "reuse_mesh": True,                                 # Save mesh after generation; load saved mesh if available
         "mesh_type": 1,                                     # 1=conforming non-uniform, 2=non-conforming hexgrid, 3=non-conforming rectangular
         "target_elements": 10000,                           # Target number of elements (all mesh types; actual count ±10-15%)
         
         # ── Type 1 mesh settings (conforming non-uniform) ────────────
         "mesh_convergence": [10, 0.2, 0.8, 15],             # [min_iter, q_worst_avg, q_mean, max_iter]. Recommended [25, 0.2, 0.8, 50]
-        "mesh_floor_ratio": 0.2,                           # h_min = floor × h_max. Limits max/min element size ratio.
+        "mesh_floor_ratio": 0.2,                            # h_min = floor × h_max. Limits max/min element size ratio.
                                                             # 0.2 = smallest element ≥ 20% of largest (ratio ≤ 5.0). 0 = no floor.
         "junction_refine_ratio": 0.7,                       # Refine mesh near junction (triple) points.
                                                             # Value = radius in multiples of h_max. 0 = disabled.
@@ -166,11 +166,11 @@ jobs = [
         "macro_thermal_field": [0, -1, 0],                  # [∂T/∂x1, ∂T/∂x2, ∂T/∂x3] or [q1, q2, q3]
         
         # ── Wave speed settings ──────────────────────────────────────
-        "wave_speed_plots": ["VP", "VS1"],                        # "none" = skip, "all" = all 8 fields, or list:
+        "wave_speed_plots": ["VP", "VS1"],                  # "none" = skip, "all" = all 8 fields, or list:
                                                             # ["VP", "VS1", "VS2", "VSH", "VSV", "AVS", "DTS", "DTP"]
         "wave_speed_plot_type": "both",                     # "lambert" = 2D disk, "sphere" = 3D, "both" = both
-        "wave_speed_sphere_elev": 30,                         # Sphere plot elevation above x-y plane (degrees)
-        "wave_speed_sphere_azim": 30,                         # Sphere plot azimuth from +x axis in x-y plane (degrees)
+        "wave_speed_sphere_elev": 30,                       # Sphere plot elevation above x-y plane (degrees)
+        "wave_speed_sphere_azim": 30,                       # Sphere plot azimuth from +x axis in x-y plane (degrees)
     },
     # ── Additional jobs ──────────────────────────────────────────────────
     # To add more jobs, copy the job dictionary above, paste it here,
