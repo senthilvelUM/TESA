@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+message: "If you use TESA Toolbox in your research, please cite both this software and the underlying method paper (see `preferred-citation` and `references` below)."
+title: "TESA Toolbox: Thermal and Elastic Scale-bridging Analysis of Polycrystalline Microstructures"
+abstract: "TESA Toolbox is a Python-based computational tool for evaluating the effective (homogenized) thermo-elastic and thermal transport properties of polycrystalline materials directly from EBSD microstructure data, using the Asymptotic Expansion Homogenization (AEH) finite element method."
+type: software
+version: 2.0.0
+date-released: 2026-04-16
+license: MIT
+repository-code: "https://github.com/senthilvelUM/TESA"
+url: "https://github.com/senthilvelUM/TESA"
+keywords:
+  - polycrystalline materials
+  - EBSD
+  - homogenization
+  - asymptotic expansion homogenization
+  - AEH
+  - finite element method
+  - microstructure
+  - effective properties
+  - thermoelasticity
+  - thermal conductivity
+  - wave speeds
+  - Python
+authors:
+  - family-names: Vel
+    given-names: Senthil S.
+    affiliation: "Department of Mechanical Engineering, University of Maine"
+    email: senthil.vel@maine.edu
+  - family-names: Cook
+    given-names: Alden C.
+    affiliation: "Department of Mechanical Engineering, University of Maine"
+  - family-names: Johnson
+    given-names: Scott E.
+    affiliation: "School of Earth and Climate Sciences, University of Maine"
+  - family-names: Gerbi
+    given-names: Christopher
+    affiliation: "School of Earth and Climate Sciences, University of Maine"
+  - family-names: Song
+    given-names: Won Joon
+    affiliation: "School of Earth and Climate Sciences, University of Maine"
+preferred-citation:
+  type: article
+  title: "Computational homogenization and micromechanical analysis of textured polycrystalline materials"
+  authors:
+    - family-names: Vel
+      given-names: Senthil S.
+    - family-names: Cook
+      given-names: Alden C.
+    - family-names: Johnson
+      given-names: Scott E.
+    - family-names: Gerbi
+      given-names: Christopher
+  journal: "Computer Methods in Applied Mechanics and Engineering"
+  volume: 310
+  start: 749
+  end: 779
+  year: 2016
+  doi: "10.1016/j.cma.2016.07.037"
