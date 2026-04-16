@@ -2,7 +2,7 @@
 
 **Thermal and Elastic Scale-bridging Analysis of Polycrystalline Microstructures**
 
-**Authors:** Alden C. Cook<sup>1</sup>, Senthil S. Vel<sup>1</sup>, Scott Johnson<sup>2</sup>, Chris Gerbi<sup>2</sup>, and Won Joon Song<sup>2</sup>
+**Authors:** Senthil S. Vel<sup>1</sup>, Alden C. Cook<sup>1</sup>, Scott Johnson<sup>2</sup>, Chris Gerbi<sup>2</sup>, and Won Joon Song<sup>2</sup>
 
 <sup>1</sup> Department of Mechanical Engineering, University of Maine, Orono, Maine 04469
 
