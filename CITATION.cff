@@ -32,11 +32,11 @@ authors:
   - family-names: Johnson
     given-names: Scott E.
     affiliation: "School of Earth and Climate Sciences, University of Maine"
-  - family-names: Gerbi
-    given-names: Christopher
-    affiliation: "School of Earth and Climate Sciences, University of Maine"
   - family-names: Song
     given-names: Won Joon
+    affiliation: "School of Earth and Climate Sciences, University of Maine"
+  - family-names: Gerbi
+    given-names: Christopher
     affiliation: "School of Earth and Climate Sciences, University of Maine"
 preferred-citation:
   type: article
