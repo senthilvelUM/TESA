@@ -90,7 +90,7 @@ The available keywords are:
 | `*phase` | Phase/material name | — |
 | `*density` | Scalar density | kg/m^3 |
 | `*stiffness_matrix` | 6x6 elastic stiffness matrix | Pa |
-| `*thermal_expansion` | 6-component thermal expansion vector | 1/K |
+| `*thermal_expansion` | 6-component thermal expansion array | 1/K |
 | `*thermal_conductivity` | 3x3 thermal conductivity matrix | W/(m K) |
 
 Comments (`#`) and blank lines are ignored. Use `# source: [n]` to document data provenance, with full references at the bottom of the file.
